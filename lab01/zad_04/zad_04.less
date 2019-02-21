@@ -1,0 +1,50 @@
+@adres_width: 12em;
+@bgimg: url("papier.gif");
+@borderW: 2px;
+@address-Marg: 5px;
+
+@kod-color: red;
+@adress-color: green;
+@nazwisko_color: blue;
+@bgcolor: yellow;
+
+body {
+    background-image: @bgimg;
+}
+
+.adres {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: @address-Marg;
+    width: @adres_width;
+    border-width: @borderW;
+    border-style: solid;
+    border-color: black;
+    padding: 5px;
+    background-color: @bgcolor;
+
+    font: oblique;
+
+    .nazwisko {
+        display: block;
+        font-weight: bold;
+        border-bottom: thin solid @nazwisko_color;
+        border-top: thin solid @nazwisko_color;
+        color: @nazwisko_color;
+        font: bold;
+    }
+
+    .kod {
+        color: @kod-color;
+    }
+    
+    .ulica {
+        display: block;
+        color: @adress-color;
+    }
+
+    .telefon {
+        display: block;
+    }
+}
+

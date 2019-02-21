@@ -1,0 +1,18 @@
+@ul1-color: red;
+@ul2-color: green;
+@ul3-color: blue;
+
+ul {
+    list-style-type: decimal;
+    color: @ul1-color;
+
+    ul {
+        list-style-type: lower-alpha;
+        color: @ul2-color;
+
+        ul {
+            list-style-type: disc;
+            color: @ul3-color;
+        }
+    }
+}
