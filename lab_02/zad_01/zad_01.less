@@ -1,0 +1,31 @@
+@w: 50%;
+@h: 25%;
+@top1: 50% - (@h / 2);
+@top2: @top1 + (@h / 2);
+@left: 10%;
+@right: 10%;
+
+.common {
+    border-style: solid;
+    position: absolute;
+    text-align: center;
+    width: @w;
+    height: @h;
+}
+
+.A {
+    border-color: red;
+    background-color: yellow;
+    .common;
+    top: @top1;
+    left: @left;
+}
+
+.B {
+    border-color: blue;
+    background-color: antiquewhite;
+    .common;
+    top: @top2;
+    right: @right;
+}
+
