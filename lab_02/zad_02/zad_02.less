@@ -1,0 +1,46 @@
+#tresc {
+    overflow: auto;
+    height: 500px;
+    position: fixed;
+    top: 10%;
+}
+
+body {
+    background-color: lightgray;
+}
+
+#menu {
+    border-style: outset;
+    border-width: 5px;
+    padding: 3px;
+
+    background-color: rgb(236, 236, 236);
+
+    position: fixed;
+    width: 100%;
+
+    text-align: center;
+
+    .el_menu {
+        display: inline-block;
+        border-style: outset;
+        border-width: 1px;
+        
+        padding: 2px;
+
+        :link {
+            color: brown;
+            text-decoration-line: none;
+            font-size: smaller;
+        }
+
+        &:hover {
+            border-style: groove;
+            background-color: white;
+        }
+
+        :visited {
+            color: brown;
+        }
+    }
+}
