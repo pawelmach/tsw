@@ -1,5 +1,3 @@
 # Paweł Mach
 
-Technologie sieci web
-
-Paweł Mach
+machpawel95@gmail.com
