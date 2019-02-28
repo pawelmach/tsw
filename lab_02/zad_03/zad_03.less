@@ -1,4 +1,11 @@
-@menu_width: 20%;
+@menu_width: 25%;
+@tresc_width: 100% - @menu_width;
+@tresc_left: @menu_width;
+@bgcolor: lightgray;
+
+body {
+    background-color: @bgcolor;
+}
 
 #menu {
     width: @menu_width;
@@ -12,9 +19,9 @@
 }
 
 #tresc {
-    width: 70%;
+    width: @tresc_width;
     position: absolute;
-    left: @menu_width + 5%;
+    left: @tresc_left;
     border-left: 2px solid black;
-    padding-left: 10px;
+    padding-left: 2%;
 }
