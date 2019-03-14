@@ -35,11 +35,13 @@ function appFun(f, ...args){
         }
     }
 
-    args.forEach(element => {
-        if(typeof(element) !== f.typeConstr[element.index]){
+    args.forEach((element, index) =>{
+        if(typeof(element) !== f.typeConstr[index]){
             throw({typerr: "Argument type is diffrent than given in function definition!"});
         }
-    });
+	});
+	
+	return f(args);
 }
 
 const myFun = defFun((x) => x * x, ['number']);
