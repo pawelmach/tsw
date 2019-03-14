@@ -1,0 +1,64 @@
+@menu_width: 25%;
+@tresc_width: 100% - @menu_width;
+@tresc_left: @menu_width;
+@bgcolor: lightgray;
+
+body {
+    background-color: @bgcolor;
+}
+
+#menu, #tresc {
+    top: 30px;
+}
+
+#menu {
+    width: @menu_width;
+    text-align: center;
+    list-style: none;
+    position: absolute;
+    top: 40px;
+    
+    .el_menu {
+        
+        a{
+            width: 90%;
+            display: list-item;
+            border-style: ridge;
+            border-color: black;
+            background-color: white;
+            color: brown;
+            text-decoration-line: none;
+        }
+
+        :link, :visited {
+            color: brown;
+        }
+    }
+}
+
+#tresc {
+    width: @tresc_width;
+    position: absolute;
+    left: @tresc_left;
+    border-left: 2px solid black;
+    padding-left: 2%;
+
+    #naglowek, #stopka {
+        position: fixed;
+        top: 0;
+        left: 0;
+
+        border-bottom: solid 1px black;
+
+        color: gray;
+        padding: 5px;
+        width: 50%;
+        background-color: darken(lightgray, 10%);
+    }
+
+    #stopka {
+        top: unset;
+        bottom: 0;
+        left: 0;
+    }
+}
