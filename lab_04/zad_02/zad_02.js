@@ -6,5 +6,5 @@ function nbsp(tekst){
         throw({typerr: "Argument is not a string"});
     }
 
-    
+    let pat = /as/;
 }
