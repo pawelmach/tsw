@@ -1,0 +1,37 @@
+/*
+ZAPYTANIE POST /game/new
+
+newgame {
+    size:
+    colors:
+    steps: opcjonalne, brak to nieograniczone
+}
+
+odpowiedz newgameres{
+    game: uuid wylosowane
+}
+
+zapytanie nowy ruch /game/move
+move{
+    game: uuid
+    move: []
+}
+
+odpowiedz
+moveres{
+    game: uuid
+    black: 
+    white:
+}
+
+zapytanie stan gry post /game/status
+gamestatus{
+    game:
+}
+
+odpowiedz 
+moveres{
+    game:
+    solved: false true
+}
+*/
