@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.post('/new', (req, res) => {
     
-
     let newGameRes = {
         game: uuid()
     };
