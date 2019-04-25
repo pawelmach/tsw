@@ -15,9 +15,6 @@
         <td>
           <img id="chatStatus" src="img/bullet_red.png" width="35">
         </td>
-        <td>
-          <img id="newsStatus" src="img/bullet_red.png" width="35">
-        </td>
       </tr>
       <tr>
         <td>
@@ -27,20 +24,15 @@
             <input id="chatSend" type="button" value="Wyślij">
           </p>
         </td>
-        <td>
-          <p>
-            /news:&nbsp;
-            <input id="newsText">&nbsp;
-            <input id="newsSend" type="button" value="Wyślij">
-          </p>
-        </td>
       </tr>
-      <tr>
-        <td id="chatMessage">/chat: </td>
-        <td id="newsMessage">/news: </td>
-      </tr>
+      <div id="chatMessages">
+        <tr>
+          <td>/chat: </td>
+        </tr>
+      </div>
     </table>
     <p>
+      <input id="userName" type="text" value="UserName">
       <input id="open" type="button" value="Połącz">
       <input id="close" type="button" value="Rozłącz">
     </p>

@@ -13,23 +13,26 @@ app.use(serveStatic('public'));
 // io.set('heartbeat timeout', 10);
 // io.set('heartbeat interval', 10);
 
+let users = [];
+
 const chat = io
     .of('/chat')
     .on('connect', (socket) => {
         console.log('Uruchomiłem kanał „/chat”');
-        socket.on('message', (data) => {
-            console.log(`/chat: ${data}`);
-            socket.emit('message', `/chat: ${data}`);
-        });
-    });
+        console.log(`Podłączył się użytkownik o nicku: ${socket.handshake.query.userName}`);
 
-const news = io
-    .of('/news')
-    .on('connect', (socket) => {
-        console.log('Uruchomiłem kanał „/news”');
-        socket.on('message', (data) => {
-            console.log(`/news: ${data}`);
-        	socket.emit('message', `/news: ${data}`);
+        socket.on('message', (data, user) => {
+            console.log(`/chat: ${data}`);
+            let message = `${user} napisał: ${data}`;
+            socket.emit('message', message);
+            socket.broadcast.emit('message', message);
+        });
+
+        socket.on('userName', (user) => {
+        });
+
+        socket.on('disconnect', () => {
+
         });
     });
 
