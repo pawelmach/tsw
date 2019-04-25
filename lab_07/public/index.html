@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Mastermind</title>
+        <meta charset="UTF-8">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="mastermind.js"></script>
+        <script src="color-map.js"></script>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+        <h1>Mastermind</h1>
+        <h3>Click on the circle to change color.</h3>
+        <h3 id="uuid">d</h3>
+        <div id="menu">
+            <button id="newGameBtn">New game</button>
+            <button hidden id="checkBtn">Check</button>
+            <form hidden id="newGameForm">
+                <select id="size">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <select id="colors">
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+                <input id="moves" type="number">
+                <input id="startGame" type="button" value="Start">
+            </form>
+        </div>
+        <div id="game"></div>
+    </body>
+</html>
