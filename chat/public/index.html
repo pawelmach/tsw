@@ -2,41 +2,36 @@
 <html>
 
 <head>
-  <title>Prosty klient WebSockets</title>
+  <title>Chat</title>
   <meta charset="UTF-8">
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/skrypt.js"></script>
 </head>
 
 <body>
-  <div>
-    <table>
-      <tr>
-        <td>
-          <img id="chatStatus" src="img/bullet_red.png" width="35">
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p>
-            /chat:&nbsp;
-            <input id="chatText">&nbsp;
-            <input id="chatSend" type="button" value="Wyślij">
-          </p>
-        </td>
-      </tr>
-      <div id="chatMessages">
-        <tr>
-          <td>/chat: </td>
-        </tr>
-      </div>
-    </table>
-    <p>
-      <input id="userName" type="text" value="UserName">
-      <input id="open" type="button" value="Połącz">
-      <input id="close" type="button" value="Rozłącz">
-    </p>
+  <div class="userPanel">
 
+    <div class="nick">
+      <p id="nickname"></p>
+      <input id="nick" type="text" placeholder="Nick" value="" required>
+      <span id="nickValid"></span>
+      <input id="newNick" type="button" value="Change Nick" disabled="true">
+    </div>
+
+    <div class="room">
+      <input id="room" type="text" value="" placeholder="Room Name">
+      <span id="roomValid"></span>
+      <input id="newRoom" type="button" value="Create Room" disabled="true">
+    </div>
+
+    <div id="rooms"></div>
+  </div>
+
+  <div class="chat">
+    <h1 id="roomName"></h1>
+    <div id="messages"></div>
+    <input id="msgInput" type="text" disabled="true" value="" placeholder="Type in your message">
+    <input id="send" type="button" disabled="true" value="Send">
   </div>
 </body>
 

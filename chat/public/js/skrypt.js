@@ -5,67 +5,161 @@
 // Inicjalizacja UI
 document.onreadystatechange = () => {
 	if (document.readyState === "interactive") {
-		const chatStatus	= document.getElementById('chatStatus');
-		const chatSend	  = document.getElementById('chatSend');
-		const chatText 	  = document.getElementById('chatText');
-		const chatMessages	= document.getElementById('chatMessages');
-		const open	      = document.getElementById('open');
-		const close			= document.getElementById('close');	
-		const userName 		= document.getElementById('userName');
-		const greenBullet = 'img/bullet_green.png';
-		const redBullet   = 'img/bullet_red.png';
-		let user;
 
-		var chat;
+		const nickValid		= document.getElementById('nickValid');
+		const nick			= document.getElementById('nick');
+		const newNick		= document.getElementById('newNick');
+		const nickname		= document.getElementById('nickname');
 
-		close.disabled = true;
-		chatSend.disabled = true;
+		const newRoom		= document.getElementById('newRoom');
+		const roomValid		= document.getElementById('roomValid');
+		const room			= document.getElementById('room');
 
-		// Po kliknięciu guzika „Połącz” tworzymy nowe połączenie WS
-		open.addEventListener('click', () => {
-			open.disabled = true;
-			userName.disabled = true;
-			user = userName.value;
-			chat = io(`http://${location.host}/chat`, {query: {userName: user}} );
+		const rooms			= document.getElementById('rooms');
 
-			chat.on('connect', () => {
-				close.disabled = false;
-				chatSend.disabled = false;
-				chatStatus.src = greenBullet;
-				console.log('Nawiązano połączenie z kanałem „/chat”');
-			});
-			chat.on('disconnect', () => {
-				open.disabled = false;
-				chatStatus.src = redBullet;
-				console.log('Połączenie z kanałem „/chat” zostało zakończone');
-			});
-			chat.on('message', (data) => {
-				let newMessage = document.createElement('td');
-				let newRow = document.createElement('tr');
-				newMessage.textContent = data;
-				newRow.appendChild(newMessage);
-				chatMessages.appendChild(newRow);
-			});
+		const messages		= document.getElementById('messages');
+		const roomName		= document.getElementById('roomName');
+		const msgInput		= document.getElementById('msgInput');
+		const send			= document.getElementById('send');
+
+		let chat = io(`http://${location.host}/`);
+
+		window.onload = () => {
+			nick.value = '';
+			room.value = '';
+			newNick.disabled = true;
+			newRoom.disabled = true;
+			room.disabled = true;
+			send.disabled = true;
+			msgInput.disabled = true;
+		};
+
+		// Socket events
+		chat.on('connection', (roomsData) => {
+			displayRooms(roomsData, true);
 		});
 
-
-		// Zamknij połączenie po kliknięciu guzika „Rozłącz”
-		close.addEventListener('click', () => {
-			close.disabled = true;
-			chatSend.disabled = true;
-			while(chatMessages.hasChildNodes()){
-				chatMessages.firstChild.remove();
+		chat.on('nick avaible', (avaible) => {
+			if(avaible){
+				nickValid.innerText = 'Nick is avaible';
+				nickValid.style = 'color: green';
+				newNick.disabled = false;
+			} else {
+				nickValid.innerText = 'Nick is not avaible';
+				nickValid.style = 'color: red';
+				newNick.disabled = true;
 			}
-			userName.disabled = false;
-			chat.disconnect();
 		});
 
-
-		// Wyślij komunikat do serwera po naciśnięciu guzika „Wyślij”
-		chatSend.addEventListener('click', () => {
-			chat.emit('message', chatText.value, user);
-			console.log(`Wysłałem wiadomość /chat: ${chatText.value}`);
-			chatText.value = '';
+		chat.on('nick create', (newnick) => {
+			nickValid.innerText = '';
+			nickname.innerText = newnick;
+			newNick.disabled = true;
+			room.disabled = false;
+			rooms.childNodes.forEach(x => x.disabled = false);
 		});
+
+		chat.on('room avaible', (avaible) => {
+			if(avaible){
+				roomValid.innerText = 'Room name is avaible';
+				roomValid.style = 'color: green';
+				newRoom.disabled = false;
+			} else {
+				roomValid.innerText = 'Room name is not avaible';
+				roomValid.style = 'color: red';
+				newRoom.disabled = true;
+			}
+		});
+
+		chat.on('room create', (roomsData) => {
+			roomValid.innerText = '';
+			newRoom.disabled = true;
+			room.value = '';
+			displayRooms(roomsData);
+		});
+
+		chat.on('room change', (roomData) => {
+			while(messages.hasChildNodes()){
+				messages.firstChild.remove();
+			}
+			roomName.innerText = roomData.name;
+			roomData.msgs.forEach(msg => displayMsg(msg));
+			send.disabled = false;
+			msgInput.disabled = false;
+		});
+
+		chat.on('message', (msg, date) => {
+			displayMsg(msg, date);
+		});
+
+		// Listeners
+
+		newNick.addEventListener('click', () => {
+			chat.emit('nick create', nick.value);
+		});
+
+		nick.addEventListener('input', () => {
+			if(nick.value === ''){
+				newNick.disabled = true;
+				nickValid.innerText = '';
+			} else {
+				newNick.disabled = false;
+				chat.emit('nick avaible', nick.value);
+			}
+		});
+
+		room.addEventListener('input', () => {
+			if(room.value === ''){
+				newRoom.disabled = true;
+				roomValid.innerText = '';
+			} else {
+				newRoom.disabled = false;
+				chat.emit('room avaible', room.value);
+			}
+		});
+
+		newRoom.addEventListener('click', () => {
+			chat.emit('room create', room.value);
+		});
+
+		send.addEventListener('click', () => {
+			if(msgInput.value !== ''){
+				chat.emit(
+					'message', 
+					roomName.innerText, 
+					msgInput.value
+				);
+				msgInput.value = '';
+			}
+		});
+
+		// Helpers
+
+		const displayRooms = (rms, disable) => {
+			while(rooms.hasChildNodes()){
+				rooms.firstChild.remove();
+			}
+			rms.forEach(r => {
+				let btn = document.createElement('input');
+				btn.type = 'button';
+				btn.value = r;
+				if(disable){
+					btn.disabled = true;
+				} 
+				btn.addEventListener('click', function() {
+					chat.emit('room change', this.value);
+				});
+				rooms.appendChild(btn);
+			});
+		};
+
+		const displayMsg = (msg, date) => {
+			let p = document.createElement('p');
+			let span = document.createElement('span');
+			span.innerText = date;
+			p.innerText = msg;
+			p.appendChild(span);
+			messages.appendChild(p);
+		};
 	}
 };
