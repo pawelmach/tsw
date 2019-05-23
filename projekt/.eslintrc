@@ -1,0 +1,33 @@
+{"root": true,
+    "env": {
+      "node": true,
+      "es6": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/standard"
+    ],
+    "rules": {
+      "no-console": "off",
+      "no-debugger": "off",
+      "indent": ["error", 4],
+      "semi": ["error", "always"],
+      "quotes": ["error", "single"]
+    },
+    "overrides": [{
+      "files": ["*.vue"],
+      "rules": {
+          "indent": "off",
+          "vue/script-indent": ["error", 4, {
+              "baseIndent": 1
+          }],
+          "vue/html-indent": ["error", 4, {
+              "baseIndent": 1
+          }],
+          "vue/max-attributes-per-line": "off"
+      }
+    }],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    }
+  }
