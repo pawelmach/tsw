@@ -24,7 +24,8 @@
           "vue/html-indent": ["error", 4, {
               "baseIndent": 1
           }],
-          "vue/max-attributes-per-line": "off"
+          "vue/max-attributes-per-line": "off",
+          "vue/require-v-for-key": "off"
       }
     }],
     "parserOptions": {
