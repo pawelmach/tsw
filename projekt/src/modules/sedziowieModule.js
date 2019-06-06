@@ -31,6 +31,9 @@ const actions = {
 const mutations = {
     FETCH_SEDZIOWIE: (state, sedziowie) => {
         state.sedziowie = sedziowie;
+    },
+    nowySedzia: (state) => {
+        state.sedziowie.push({ id: state.sedziowie.length + 1, sedzia: '', kraj: '' });
     }
 };
 

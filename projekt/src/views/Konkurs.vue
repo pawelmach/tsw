@@ -5,11 +5,14 @@
             <router-link to="/konkurs/klasy">Klasy</router-link> |
             <router-link to="/konkurs/sedziowie">Sędziowie</router-link>
         </div>
-        <router-view
-            @konSelected="showKonDetail($event)"
-            @klasaSelected="showKlasaDetail($event)"
-        >
-        </router-view>
+        <div class="output">
+            <router-view
+                @konSelected="showKonDetail($event)"
+                @klasaSelected="showKlasaDetail($event)"
+                :mode="true"
+            >
+            </router-view>
+        </div>
     </div>
 </template>
 
@@ -27,5 +30,8 @@
 </script>
 
 <style>
-
+.all{
+    display: flex;
+    flex-direction: row;
+}
 </style>

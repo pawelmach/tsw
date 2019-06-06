@@ -92,6 +92,9 @@
 
 <style lang="less">
 .horseDetail{
+    display: flexbox;
+    flex-direction: row;
+
     border: 1px solid black;
     table {
         td, th {

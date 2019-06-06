@@ -35,4 +35,27 @@
     }
   }
 }
+
+.wyszukiwarka {
+    margin: 5px;
+    span { font-size: x-small; color: gray; }
+    input {
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        padding: 5px;
+        color: darken(cornflowerblue, 25%);
+    }
+    select {
+        border: 0px;
+        appearance: none;
+        background-color: transparent;
+        color: cornflowerblue;
+        &:hover{ text-decoration: underline; }
+        &:-moz-focusring {
+            color: transparent;
+            text-shadow: 0 0 0 cornflowerblue;
+        }
+        option { border: none; }
+    }
+}
 </style>

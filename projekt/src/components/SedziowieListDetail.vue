@@ -1,5 +1,11 @@
 <template>
     <div class="judgeslisy">
+        <button @click="nowySedzia()">Dodaj</button>
+        <!-- <div v-if="newS">
+            <input v-model="noweimie" type="text" placeholder="Imię i nazwisko">
+            <input type="text" maxlength="2" minlength="2" placeholder="Kraj">
+
+        </div> -->
         <div class="pages" v-if="pageNumber !== 0">
             <button @click="prevPage" :disabled="pageNumber === 0">
                 Previous
@@ -10,9 +16,9 @@
         </div>
         <div v-for="judge in judges"
              :key="judge.id"
-             @click="showDetail(judge.id)">
-            <p>
-                <span>{{ judge.sedzia }}</span>
+        >
+            <p @click="showDetail(judge.id)">
+                <span>{{ judge.sedzia }}</span> |
                 <span>{{ judge.kraj }}</span>
             </p>
             <div class="detail" v-if="selected === judge.id">
@@ -30,7 +36,8 @@
             return {
                 pageNumber: 0,
                 size: 10,
-                selected: null
+                selected: null,
+                newS: false
             };
         },
         computed: {
@@ -60,6 +67,11 @@
                 } else {
                     this.selected = id;
                 }
+            },
+            nowySedzia () {
+                this.newS = true;
+                this.selected = this.judges.length + 1;
+                this.$store.commit('nowySedzia');
             }
         }
 
