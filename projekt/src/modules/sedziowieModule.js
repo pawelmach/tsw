@@ -1,44 +1,65 @@
-import axios from 'axios';
+import Vue from 'vue';
 
 const state = {
-    sedziowie: []
+    sedziowie: [],
+    headers: [
+        { text: 'Sędzia', value: 'sedzia' },
+        { text: 'Kraj', value: 'kraj' }
+    ]
 };
 
 const getters = {
-    getJudgeById: state => {
+    getById: (state) => {
         return (id) => {
             return state.sedziowie.find(j => j.id === id);
         };
     },
-    paginatedJudges: state => {
-        return (start, end) => {
-            return state.sedziowie.slice(start, end);
+    getAll: (state) => {
+        return state.sedziowie;
+    },
+    filterById: (state) => {
+        return (ids) => {
+            return state.sedziowie.filter(v => ids.includes(v.id));
         };
     },
-    judgesCount: state => {
-        return state.sedziowie.length;
+    getHeaders: (state) => {
+        return state.headers;
+    },
+    search: (state) => {
+        return (search, searchBy) => {
+            return state.sedziowie.filter(sedzia => {
+                return sedzia[searchBy]
+                    .toString()
+                    .toLowerCase()
+                    .includes(search.toLowerCase());
+            });
+        };
     }
 };
 
 const actions = {
-    fetchSedziowie: (context) => {
-        let url = 'http://localhost:3000/';
-        axios.get(url + 'sedziowie', { headers: { 'Access-Control-Allow-Origin': '*' } })
-            .then(res => context.commit('FETCH_SEDZIOWIE', res.data));
-    }
+
 };
 
 const mutations = {
-    FETCH_SEDZIOWIE: (state, sedziowie) => {
+    SOCKET_NEW_SEDZIA (state, sedzia) {
+        state.sedziowie.push(sedzia);
+    },
+    SOCKET_FETCH_SEDZIOWIE (state, sedziowie) {
         state.sedziowie = sedziowie;
     },
-    nowySedzia: (state) => {
-        state.sedziowie.push({ id: state.sedziowie.length + 1, sedzia: '', kraj: '' });
+    SOCKET_EDIT_SEDZIA (state, sedzia) {
+        let i = state.sedziowie.findIndex(v => v.id === sedzia.id);
+        Vue.set(state.sedziowie, i, sedzia);
+    },
+    SOCKET_DELETE_SEDZIA (state, sedzia) {
+        let i = state.sedziowie.findIndex(v => v.id === sedzia.id);
+        state.sedziowie.splice(i, 1);
     }
 };
 
 export default {
-    namespaced: false,
+    namespaced: true,
     state,
     getters,
     actions,

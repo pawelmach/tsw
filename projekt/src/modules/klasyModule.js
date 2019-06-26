@@ -1,22 +1,23 @@
-import axios from 'axios';
-// import Vue from 'vue';
+import Vue from 'vue';
 
 const state = {
-    klasy: []
+    klasy: [],
+    headers: [
+        { text: 'Numer', value: 'numer' },
+        { text: 'Kategoria', value: 'kat' }
+    ]
 };
 
 const getters = {
-    getClassById (state, getters, rootState, rootGetters) {
+    getById: (state) => {
         return (id) => {
             return state.klasy.find(klasa => klasa.id === id);
         };
     },
-    getSedziowie (state, getters, rootState, rootGetters) {
-        return (id) => {
-            return state.klasy.find(klasa => klasa.id === id).komisja.map(k => { return rootState.sedziowie.sedziowie.find(s => s.id === k); });
-        };
+    getAll: (state) => {
+        return state.klasy;
     },
-    filterKlasy: (state) => {
+    search: (state) => {
         return (search, searchBy) => {
             return state.klasy.filter(klasa => {
                 return klasa[searchBy]
@@ -26,41 +27,42 @@ const getters = {
             });
         };
     },
-    getHorsesInKlasa (state, getters, rootState, rootGetters) {
-        return (id) => {
-            return rootState.konie.konie.filter(k => k.klasa === id);
-        };
+    getHeaders: (state) => {
+        return state.headers;
+    },
+    getLength: (state) => {
+        return state.klasy.length;
     }
 };
 
 const actions = {
-    fetchKlasy (context) {
-        let url = 'http://localhost:3000/';
-        axios.get(url + 'klasy')
-            .then(res => context.commit('FETCH_KLASY', res.data));
+    add (context, payload) {
+        context.commit('ADD_KLASA', payload);
     },
-    deleteKlasa (context, payload) {
-        context.commit('DELETE_KLASA', payload);
-    },
-    createKlasa (context, payload) {
-        context.commit('CREATE_KLASA', payload);
+    edit (context, payload) {
+        context.commit('EDIT_KLASA', payload);
     }
 };
 
 const mutations = {
-    FETCH_KLASY (state, klasy) {
+    SOCKET_FETCH_KLASY (state, klasy) {
         state.klasy = klasy;
     },
-    DELETE_KLASA (state, id) {
-        state.klasy.splice(state.klasy.findIndex(v => v.id === id), 1);
-    },
-    CREATE_KLASA (state, klasa) {
+    SOCKET_NEW_KLASA (state, klasa) {
         state.klasy.push(klasa);
+    },
+    SOCKET_EDIT_KLASA (state, klasa) {
+        let i = state.klasy.findIndex(v => v.id === klasa.id);
+        Vue.set(state.klasy, i, klasa);
+    },
+    SOCKET_DELETE_KLASA (state, klasa) {
+        let i = state.klasy.findIndex(v => v.id === klasa.id);
+        state.klasy.splice(i, 1);
     }
 };
 
 export default {
-    namespaced: false,
+    namespaced: true,
     state,
     getters,
     actions,
