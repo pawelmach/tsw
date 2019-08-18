@@ -1,7 +1,7 @@
 <template>
     <v-layout row nowrap>
         <v-flex>
-            <router-link to="/panelkibica">
+            <router-link to="/panelkibica" v-if="!isGuest">
                 <v-btn flat>
                     Panel Kibica
                 </v-btn>

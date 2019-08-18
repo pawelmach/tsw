@@ -21,7 +21,7 @@ module.exports = function (socket, io) {
             });
     });
 
-    socket.on('sedzia delete', (sedzia) => {
+    socket.on('sedziowie delete', (sedzia) => {
         sedziowieCont.remove(sedzia)
             .then(res => {
                 console.log(`Usunieto sedziego o id: ${res.id}`);

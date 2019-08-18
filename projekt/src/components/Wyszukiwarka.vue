@@ -32,6 +32,12 @@
                 value: ''
             };
         },
+        watch: {
+            by (n, o) {
+                this.$emit('filtered', this.search(this.value, n));
+                this.by = n;
+            }
+        },
         props: ['namespace'],
         computed: {
             search () {

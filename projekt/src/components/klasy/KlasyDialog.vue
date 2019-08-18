@@ -77,6 +77,7 @@
         watch: {
             editItem (n, o) {
                 if (n !== undefined) {
+                    console.log(n);
                     this.klasa = n;
                 }
             }

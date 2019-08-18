@@ -1,5 +1,5 @@
 <template>
-    <v-card flat>
+    <v-card raised>
         <v-card-title>Sędziowie</v-card-title>
         <v-card-text>
             <v-chip
@@ -9,6 +9,7 @@
                 {{item.sedzia}}
             </v-chip>
         </v-card-text>
+        <!-- <v-divider></v-divider> -->
     </v-card>
 </template>
 

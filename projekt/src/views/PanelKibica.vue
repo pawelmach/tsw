@@ -6,7 +6,7 @@
                     <v-toolbar-title>Klasy</v-toolbar-title>
                     <v-spacer></v-spacer>
                     <div>
-                        <v-checkbox v-model="finished" label="Zakończone"></v-checkbox>
+                        <!-- <v-checkbox v-model="finished" label="Zakończone"></v-checkbox> -->
                     </div>
                 </v-toolbar>
 

@@ -7,7 +7,12 @@
             >
                 <template v-slot:header>
                     <div>
-                        {{kon.wynik.miejsce}}. {{kon.nazwa}}
+                        {{kon.wynik.miejsce}}. {{kon.nazwa}} |
+                        <span>
+                            Punkty: {{kon.wynik.punkty}} |
+                            Suma ruch: {{kon.wynik.sumR}} |
+                            Suma typ: {{kon.wynik.sumT}}
+                        </span>
                     </div>
                 </template>
                 <v-card>

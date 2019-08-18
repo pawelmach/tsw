@@ -127,6 +127,7 @@
     export default {
         data () {
             return {
+                oldNumber: null,
                 kon: {
                     id: null,
                     numer: null,
@@ -157,15 +158,27 @@
                             nazwa: '',
                             kraj: ''
                         }
+                    },
+                    wynik: {
+                        noty: [],
+                        miejsce: 0,
+                        rozjemca: false,
+                        punkty: 0,
+                        sumT: 0,
+                        sumG: 0,
+                        sumK: 0,
+                        sumN: 0,
+                        sumR: 0
                     }
                 }
             };
         },
         props: ['open', 'editItem'],
-        warch: {
+        watch: {
             editItem (n, o) {
                 if (n !== undefined) {
                     this.kon = n;
+                    this.oldNumber = n.numer;
                 }
             }
         },
@@ -187,6 +200,7 @@
                     this.$socket.emit('kon add', this.kon);
                 } else {
                     this.$socket.emit('kon edit', this.kon);
+                    this.$store.commit('konie/updateNumbers', { kon: this.kon, oldNumber: this.oldNumber });
                 }
                 this.$emit('close');
             }

@@ -30,6 +30,9 @@ const getters = {
     getHeaders: (state) => {
         return state.headers;
     },
+    getHeadersLength: (state) => {
+        return state.headers.length;
+    },
     getLength: (state) => {
         return state.klasy.length;
     }

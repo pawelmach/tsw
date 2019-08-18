@@ -26,6 +26,8 @@ export default new Router({
             beforeEnter (to, from, next) {
                 if (store.state.username !== 'admin') {
                     next('/');
+                } else {
+                    next();
                 }
             },
             children: [
@@ -42,6 +44,8 @@ export default new Router({
             beforeEnter (to, from, next) {
                 if (store.state.username !== 'admin') {
                     next('/');
+                } else {
+                    next();
                 }
             },
             children: [

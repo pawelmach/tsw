@@ -1,7 +1,7 @@
 <template>
     <v-layout nowrap row>
         <v-flex>
-            <v-card flat>
+            <v-card>
                 <v-card-title>Właściciel</v-card-title>
                 <v-card-text>
                     {{props.item.wlasciciel.nazwa}}
@@ -10,7 +10,7 @@
             </v-card>
         </v-flex>
         <v-flex>
-            <v-card flat>
+            <v-card>
                 <v-card-title>Hodowca</v-card-title>
                 <v-card-text>
                     {{props.item.hodowca.nazwa}}
@@ -19,7 +19,7 @@
             </v-card>
         </v-flex>
         <v-flex>
-            <v-card flat>
+            <v-card>
                 <v-card-title>Rodowód</v-card-title>
                 <v-card-text>
                     <p>
@@ -37,6 +37,7 @@
                 </v-card-text>
             </v-card>
         </v-flex>
+        <v-divider></v-divider>
     </v-layout>
 </template>
 

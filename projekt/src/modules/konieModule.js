@@ -19,6 +19,9 @@ const getters = {
             return state.konie.find(kon => kon.id === id);
         };
     },
+    getHeadersLength: (state) => {
+        return state.headers.length;
+    },
     getAll: (state) => {
         return state.konie;
     },
@@ -75,17 +78,35 @@ const mutations = {
                 .filter(h => h.numer >= kon.numer && h.id !== kon.id && h.numer < oldNumber)
                 .forEach(h => {
                     Vue.set(state.konie[state.konie.findIndex(v => v.id === h.id)], 'numer', h.numer + 1);
+                    this._vm.$socket.emit('kon edit', state.konie[state.konie.findIndex(v => v.id === h.id)]);
                 });
         } else if (oldNumber < kon.numer) {
             state.konie
                 .filter(h => h.numer <= kon.numer && h.id !== kon.id && h.numer > oldNumber)
                 .forEach(h => {
                     Vue.set(state.konie[state.konie.findIndex(v => v.id === h.id)], 'numer', h.numer - 1);
+                    this._vm.$socket.emit('kon edit', state.konie[state.konie.findIndex(v => v.id === h.id)]);
                 });
         }
     },
     UPDATE_MIEJSCA (state, konie) {
         // Vue.set(state.konie[state.konie.findIndex(v => v.id === kon.id)].wynik, 'noty', kon.wynik.noty);
+        konie.forEach(kon => {
+            kon.wynik.sumT = 0;
+            kon.wynik.sumG = 0;
+            kon.wynik.sumN = 0;
+            kon.wynik.sumK = 0;
+            kon.wynik.sumR = 0;
+            kon.wynik.noty.forEach(v => {
+                v.suma = v.typ + v.glowa + v.nogi + v.kloda + v.ruch;
+                kon.wynik.sumT += v.typ;
+                kon.wynik.sumG += v.glowa;
+                kon.wynik.sumN += v.nogi;
+                kon.wynik.sumK += v.kloda;
+                kon.wynik.sumR += v.ruch;
+            });
+            kon.wynik.punkty = kon.wynik.sumT + kon.wynik.sumG + kon.wynik.sumN + kon.wynik.sumK + kon.wynik.sumR;
+        });
 
         konie.sort((a, b) => {
             let k1 = a.wynik;

@@ -21,7 +21,7 @@ module.exports = function (socket, io) {
             });
     });
 
-    socket.on('kon delete', (kon) => {
+    socket.on('konie delete', (kon) => {
         konCont.remove(kon)
             .then(res => {
                 console.log(`Usunieto konia o id: ${res.id}`);

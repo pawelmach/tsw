@@ -4,10 +4,11 @@
             <v-toolbar-title v-if="namespace">{{namespace.toUpperCase()}}</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-flex xs8>
-                <Wyszukiwarka
-                    @filtered="filtered($event)"
-                    :namespace="namespace"
-                    v-if="toggleSearch"
+                <component :is="search"
+                           :key="namespace"
+                           @filtered="filtered($event)"
+                           :namespace="namespace"
+                           v-if="toggleSearch"
                 />
             </v-flex>
             <v-btn @click="toggleSearch = !toggleSearch" icon>
@@ -82,7 +83,8 @@
                 dialog: false,
                 editItem: undefined,
                 loadedData: false,
-                filteredItems: []
+                filteredItems: [],
+                search: Wyszukiwarka
             };
         },
         components: {
@@ -110,7 +112,10 @@
             },
             headers () {
                 let headers = this.$store.getters[this.namespace + '/getHeaders'];
-                headers.push({ text: 'Operacje', value: 'name', sortable: false, align: 'right' });
+                let hl = this.$store.getters[this.namespace + '/getHeadersLength'];
+                if (headers.length < hl) {
+                    headers.push({ text: 'Operacje', value: 'name', sortable: false, align: 'right' });
+                }
                 return headers;
             },
             items: {

@@ -17,6 +17,9 @@ const getters = {
     getAll: (state) => {
         return state.sedziowie;
     },
+    getHeadersLength: (state) => {
+        return state.headers.length;
+    },
     filterById: (state) => {
         return (ids) => {
             return state.sedziowie.filter(v => ids.includes(v.id));
