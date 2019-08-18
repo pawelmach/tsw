@@ -1,3 +1,8 @@
-# Paweł Mach
+# Technologie Sieci Web
 
-machpawel95@gmail.com
+## Mastermind Game
+
+## Websocket Chat
+
+## projekt
+Applictaion in Vue.js for Horse Competition with data generator and MongoDB database
